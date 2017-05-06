@@ -287,6 +287,13 @@ namespace RL_Connect4
 				current = prev;
 				//Console.WriteLine("List doesn't have board");
 			}
+			State parent = new State(makeEmpty(), 0.0);
+			if(prev.getParent() != null)
+				parent = boards.Find(new Predicate<State>(n => Program.isEqual(prev.getParent().getBoard(), n.getBoard())));
+			if(parent == null)
+			{
+				boards.Add(prev.getParent());
+			}
 
 			//decide what the next move should be
 			//Console.WriteLine("Found Board: {0}", current.getBoard());
@@ -369,7 +376,7 @@ namespace RL_Connect4
 	{
 		public static bool isEqual(char[,] a, char[,] b)
 		{
-			Console.WriteLine("Start isEqual");
+			//Console.WriteLine("Start isEqual");
 			for(int i=0; i<6; i++)
 			{
 				for(int j=0; j<7; j++)
@@ -378,21 +385,21 @@ namespace RL_Connect4
 					//Console.WriteLine("b[{0},{1}]: {2}", i, j, b[i, j]);
 					if (a[i, j] != b[i, j])
 					{
-						Console.WriteLine("End isEqual");
+						/*Console.WriteLine("End isEqual");
 						Console.WriteLine("A is: ");
 						print(a);
 						Console.WriteLine("B is: ");
-						print(b);
+						print(b);*/
 						return false;
 					}
 				}
 
-				Console.WriteLine("A is: ");
+				/*Console.WriteLine("A is: ");
 				print(a);
 				Console.WriteLine("B is: ");
-				print(b);
+				print(b);*/
 			}
-			Console.WriteLine("End isEqual");
+			//Console.WriteLine("End isEqual");
 			return true;
 		}
 		static char[,] makeEmpty()
