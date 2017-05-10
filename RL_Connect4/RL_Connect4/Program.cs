@@ -421,6 +421,7 @@ namespace RL_Connect4
 			State start = new State(makeEmpty(), null);
 			while (count < gameCount)
 			{
+				Console.WriteLine("Game Count: {0}", count);
 				//set up game at each loop iteration
 				State current = new State(start);
 				var select = rng.Next(0, 2);
@@ -449,26 +450,26 @@ namespace RL_Connect4
 						turn = 'R';
 					}
 				}
-				current.print();
+				//current.print();
 				//once game is over, have both agents give rewards
 				if (xWin)
 				{
 					x.reward(true, current);
 					o.reward(false, current);
-					Console.WriteLine("Red Wins\n");
-					Console.WriteLine();
+					//Console.WriteLine("Red Wins\n");
+					//Console.WriteLine();
 				}
 				if (oWin)
 				{
 					o.reward(true, current);
 					x.reward(false, current);
-					Console.WriteLine("Blue Wins\n");
-					Console.WriteLine();
+					//Console.WriteLine("Blue Wins\n");
+					//Console.WriteLine();
 				}
 				if (!xWin && !oWin)
 				{
-					Console.WriteLine("Draw\n");
-					Console.WriteLine();
+					//Console.WriteLine("Draw\n");
+					//Console.WriteLine();
 				}
 
 				count++;
@@ -620,10 +621,10 @@ namespace RL_Connect4
 			//go through the connect list and connect all states to each other
 			foreach (var obj in connect)
 			{
-				Console.WriteLine("Board: ");
+				/*Console.WriteLine("Board: ");
 				print(obj.board);
 				Console.WriteLine("Parent: ");
-				print(obj.parent);
+				print(obj.parent);*/
 				//Console.WriteLine("Looking for Parent: {0}", obj.parent);
 				if (!obj.PisNull)
 				{
@@ -698,7 +699,7 @@ namespace RL_Connect4
 							Console.WriteLine("Try again: ");
 							index = Convert.ToInt32(Console.ReadLine());
 						}
-						current.setBoard(current.dropPiece(index,human));
+						current = new State(current.dropPiece(index,human), null);
 						if (current.isWin(human))
 							humWin = true;
 						turn = agent;
